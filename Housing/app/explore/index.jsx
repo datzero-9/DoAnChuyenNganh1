@@ -5,7 +5,7 @@ const index = () => {
   return (
     <View>
       <Text>
-        Xin chào đây là index của explore
+        Xin chào đây là index của explore hehe test github
       </Text>
     </View>
   )
