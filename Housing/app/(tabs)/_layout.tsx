@@ -1,48 +1,80 @@
-import { View, Text } from "react-native";
-import React from "react";
+import React, { ReactNode } from "react";
+import { View, TouchableOpacity, GestureResponderEvent } from "react-native";
 import { Tabs } from "expo-router";
-import {
-  Ionicons,
-  AntDesign,
-  MaterialCommunityIcons,
-} from "@expo/vector-icons";
+import { Ionicons } from "@expo/vector-icons";
+import { StyleSheet } from "react-native";
+
+
+type CustomTabBarButtonProps = {
+  children: ReactNode;
+  onPress?: (event: GestureResponderEvent) => void;
+};
+
+const CustomTabBarButton: React.FC<CustomTabBarButtonProps> = ({ children, onPress }) => (
+  <View
+    style={{
+      width: 80,
+      height: 80,
+      borderRadius: 40,
+      justifyContent: "center",
+      marginTop: -50,
+      alignItems: "center",
+      shadowColor: "#000",
+      shadowOffset: { width: 0, height: 10 },
+      // shadowOpacity: 0.25,
+      // shadowRadius: 3.5,
+      elevation: 5,
+    }}
+  >
+    <TouchableOpacity
+      style={{
+        width: 70,
+        height: 70,
+        borderRadius: 35,
+        backgroundColor: "#FF4081",
+        justifyContent: "center",
+        alignItems: "center",
+        flexDirection: 'row'
+      }}
+      onPress={onPress}
+    >
+      {children}
+    </TouchableOpacity>
+  </View>
+);
+
 const RootLayout = () => {
   return (
-    <Tabs screenOptions={{ headerShown: false }}>
-      <Tabs.Screen
-        name="index"
-        options={{
-          tabBarLabel: ({ focused }) => (
-            <Text
-            className={`${focused ? "text-yellow-300" : "text-black"} font-bold`}
-            >
-              Home
-            </Text>
-          ),
-          tabBarIcon: ({ focused }) => (
-            <Ionicons
-              color={focused ? "#FFCC00" : "black"}
-              size={22}
-              name={focused ? "home" : "home-outline"}
-            />
-          ),
-        }}
-      />
-
+    <Tabs
+      screenOptions={{
+        headerShown: false,
+        tabBarStyle: {
+          position: "relative",
+          bottom: 20,
+          left: 15,
+          right: 15,
+          elevation: 5,
+          backgroundColor: "white",
+          borderTopRightRadius: 45,
+          borderTopLeftRadius: 45,
+          flexDirection: 'row',
+          justifyContent: 'space-around',
+          alignItems: 'center',
+          height: 60,
+          paddingBottom: 0,
+          // shadowColor: "#000",
+          // shadowOpacity: 0.1,
+          // shadowRadius: 10,
+        },
+      }}
+    >
       <Tabs.Screen
         name="explore"
+  
         options={{
-          tabBarLabel: ({ focused }) => (
-            <Text className={`${focused ? "text-yellow-300" : "text-black"} font-bold`}>
-              Explore
-            </Text>
-          ),
+          tabBarLabel: () => null,
           tabBarIcon: ({ focused }) => (
-            <Ionicons
-              color={focused ? "#FFCC00" : "black"}
-              size={22}
-              name={focused ? "newspaper" : "newspaper-outline"}
-            />
+            <Ionicons  color={focused ? "#FF4081" : "gray"} size={28} name="newspaper-outline" />
           ),
         }}
       />
@@ -50,67 +82,55 @@ const RootLayout = () => {
       <Tabs.Screen
         name="chatbot"
         options={{
-          tabBarLabel: ({ focused }) => (
-            <Text
-            className={`${focused ? "text-yellow-300" : "text-black"} font-bold`}
-            >
-              Chat
-            </Text>
-          ),
+          tabBarLabel: () => null,
           tabBarIcon: ({ focused }) => (
-            <Ionicons
-              color={focused ? "#FFCC00" : "black"}
-              size={22}
-              name={focused ? "logo-wechat" : "chatbox-ellipses-outline"}
-            />
+            <Ionicons color={focused ? "#FF4081" : "gray"} size={28} name="chatbox-ellipses-outline" />
           ),
         }}
       />
+
+      <Tabs.Screen
+        name="index"
+        options={{
+          tabBarLabel: () => null,
+          tabBarButton: (props) => <CustomTabBarButton {...props} />,
+          tabBarIcon: ({ focused }) => (
+            <Ionicons style={focused ? styles.focus : ''}  color="white" size={35} name="home" />
+          ),
+        }}
+      />
+
       <Tabs.Screen
         name="favorite"
         options={{
-          tabBarLabel: ({ focused }) => (
-            <Text
-            className={`${focused ? "text-yellow-300" : "text-black"} font-bold`}
-
-            >
-              Favorite
-            </Text>
-          ),
+          tabBarLabel: () => null,
           tabBarIcon: ({ focused }) => (
-            <Ionicons
-              color={focused ? "#FFCC00" : "black"}
-
-              size={22}
-              name={focused ? "heart-circle-outline" : "heart-outline"}
-            />
+            <Ionicons color={focused ? "#FF4081" : "gray"} size={28} name="heart-outline" />
           ),
         }}
       />
+
       <Tabs.Screen
         name="profile"
         options={{
-          tabBarLabel: ({ focused }) => (
-            <Text
-            className={`${focused ? "text-yellow-300" : "text-black"} font-bold`}
-
-            >
-              profile
-            </Text>
-          ),
+          tabBarLabel: () => null,
           tabBarIcon: ({ focused }) => (
-            <Ionicons
-              color={focused ? "#FFCC00" : "black"}
-              size={22}
-              name={focused ? "person-circle-outline" : "person-outline"}
-            />
+            <Ionicons color={focused ? "#FF4081" : "gray"} size={28} name="person-outline" />
           ),
         }}
       />
-
-
     </Tabs>
   );
 };
+const styles = StyleSheet.create({
+  icon: {
+    // marginTop: 5
+    // paddingBottom: 15
+  },
+  focus: {
+    shadowOpacity: 0.25,
+    shadowRadius: 3.5,
+  }
+});
 
 export default RootLayout;
