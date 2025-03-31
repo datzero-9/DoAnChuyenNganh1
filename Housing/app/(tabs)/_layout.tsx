@@ -31,7 +31,7 @@ const CustomTabBarButton: React.FC<CustomTabBarButtonProps> = ({ children, onPre
         width: 70,
         height: 70,
         borderRadius: 35,
-        backgroundColor: "#FF4081",
+        backgroundColor: "#687553",
         justifyContent: "center",
         alignItems: "center",
         flexDirection: 'row'
@@ -50,7 +50,6 @@ const RootLayout = () => {
         headerShown: false,
         tabBarStyle: {
           position: "relative",
-          bottom: 20,
           left: 15,
           right: 15,
           elevation: 5,
@@ -60,7 +59,7 @@ const RootLayout = () => {
           flexDirection: 'row',
           justifyContent: 'space-around',
           alignItems: 'center',
-          height: 60,
+          height: 70,
           paddingBottom: 0,
           // shadowColor: "#000",
           // shadowOpacity: 0.1,
@@ -74,7 +73,7 @@ const RootLayout = () => {
         options={{
           tabBarLabel: () => null,
           tabBarIcon: ({ focused }) => (
-            <Ionicons  color={focused ? "#FF4081" : "gray"} size={28} name="newspaper-outline" />
+            <Ionicons  color={focused ? "#687553" : "#A3A2A9"} size={28} name="newspaper-outline" />
           ),
         }}
       />
@@ -84,7 +83,7 @@ const RootLayout = () => {
         options={{
           tabBarLabel: () => null,
           tabBarIcon: ({ focused }) => (
-            <Ionicons color={focused ? "#FF4081" : "gray"} size={28} name="chatbox-ellipses-outline" />
+            <Ionicons color={focused ? "#687553" : "#A3A2A9"} size={28} name="chatbox-ellipses-outline" />
           ),
         }}
       />
@@ -105,7 +104,7 @@ const RootLayout = () => {
         options={{
           tabBarLabel: () => null,
           tabBarIcon: ({ focused }) => (
-            <Ionicons color={focused ? "#FF4081" : "gray"} size={28} name="heart-outline" />
+            <Ionicons color={focused ? "#687553" : "#A3A2A9"} size={28} name="heart-outline" />
           ),
         }}
       />
@@ -115,7 +114,7 @@ const RootLayout = () => {
         options={{
           tabBarLabel: () => null,
           tabBarIcon: ({ focused }) => (
-            <Ionicons color={focused ? "#FF4081" : "gray"} size={28} name="person-outline" />
+            <Ionicons color={focused ? "#687553" : "#A3A2A9"} size={28} name="person-outline" />
           ),
         }}
       />
