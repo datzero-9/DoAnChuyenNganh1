@@ -36,14 +36,22 @@ export default function RootLayout() {
     <ClerkProvider publishableKey={publishableKey} tokenCache={tokenCache}>
       <ClerkLoaded>
         <ThemeProvider value={colorScheme === 'dark' ? DarkTheme : DefaultTheme}>
-          <Stack>
-            <Stack.Screen name="(tabs)" options={{ headerShown: false }} />
-            <Stack.Screen name="login/login" options={{ headerShown: false }} />
-            <Stack.Screen name="+not-found" options={{ headerShown: false }} />
+          <Stack screenOptions={{ headerShown: false }}>
+            <Stack.Screen name="(tabs)" />
+            <Stack.Screen name="login/login"  />
+            <Stack.Screen name="+not-found"  />
           </Stack>
           <StatusBar style="auto" />
         </ThemeProvider>
       </ClerkLoaded>
     </ClerkProvider>
+    // <ClerkProvider
+    //   publishableKey={publishableKey}
+    //   tokenCache={tokenCache}
+    // >
+    //   <ClerkLoaded>
+    //     <Stack screenOptions={{ headerShown: false }} />;
+    //   </ClerkLoaded>
+    // </ClerkProvider>
   );
 }

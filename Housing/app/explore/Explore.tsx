@@ -1,4 +1,4 @@
-import React from 'react';
+import React from 'react-native';
 import { View, Text, ScrollView, TouchableOpacity, Image } from 'react-native';
 import { Feather, Ionicons } from '@expo/vector-icons';
 // import House from './assets/house.png'; // Import ảnh ngôi nhà
@@ -13,11 +13,11 @@ const HomeScreen = () => {
     return (
         <ScrollView className=" bg-gray-100">
             {/* Header */}
-            <View className="bg-red-600 p-4 pt-10 rounded-b-2xl">
+            <View className="bg-red-600 p-4 pt-5 rounded-b-2xl">
                 <View className="flex-row justify-between items-center">
                     <View className="flex-row items-center">
-                        <View className="bg-white rounded-full p-2">
-                            <Text className="text-red-600 font-bold text-xl">ĐẠt</Text>
+                        <View className="bg-white rounded-full p-2 w-12 h-12 ">
+                            <Text className="text-center text-red-600 font-bold text-xl">Đ</Text>
                         </View>
                         <View className="ml-3">
                             <Text className="text-white font-bold text-base">Chào buổi sáng</Text>

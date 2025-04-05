@@ -17,16 +17,17 @@ const Profile = () => {
       { text: "Đăng xuất", onPress: () => signOut() },
     ]);
   };
+  const info = {
+    id: user?.id,
+    email: user?.emailAddresses[0]?.emailAddress,
+    fullName: user?.fullName,
+    firstName: user?.firstName,
+    lastName: user?.lastName,
 
+  }
 
   const infoUser = () => {
-    const info = {
-      id: user?.id,
-      email: user?.emailAddresses[0]?.emailAddress,
-      fullName: user?.fullName,
-      firstName: user?.firstName,
 
-    }
     console.log(info);
   }
   if (!user) {
@@ -42,7 +43,12 @@ const Profile = () => {
   return (
     <SafeAreaView>
       <View className="border p-4">
-        <Text onPress={() => infoUser()}>Xin chào</Text>
+        <Text onPress={() => infoUser()}>id: {info.id}</Text>
+        <Text onPress={() => infoUser()}>email: {info.email}</Text>
+        <Text onPress={() => infoUser()}>họ và tên: {info.fullName}</Text>
+        <Text onPress={() => infoUser()}>{info.firstName}</Text>
+        <Text onPress={() => infoUser()}>{info.lastName}</Text>
+
         <TouchableOpacity
           className="bg-red-500 p-2 rounded-md mt-4"
           onPress={handleLogout}
