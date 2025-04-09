@@ -1,12 +1,8 @@
 import React, { ReactNode } from "react";
-import { View, TouchableOpacity, GestureResponderEvent, Text } from "react-native";
+import { View, TouchableOpacity, GestureResponderEvent, Text, StyleSheet } from "react-native";
 import { Redirect, Tabs } from "expo-router";
 import { Ionicons } from "@expo/vector-icons";
-import { StyleSheet } from "react-native";
 import { useUser } from '@clerk/clerk-expo';
-
-
-
 
 type CustomTabBarButtonProps = {
   children: ReactNode;
@@ -24,8 +20,6 @@ const CustomTabBarButton: React.FC<CustomTabBarButtonProps> = ({ children, onPre
       alignItems: "center",
       shadowColor: "#000",
       shadowOffset: { width: 0, height: 10 },
-      // shadowOpacity: 0.25,
-      // shadowRadius: 3.5,
       elevation: 5,
     }}
   >
@@ -34,10 +28,10 @@ const CustomTabBarButton: React.FC<CustomTabBarButtonProps> = ({ children, onPre
         width: 70,
         height: 70,
         borderRadius: 35,
-        backgroundColor: "#687553",
+        backgroundColor: "red",
         justifyContent: "center",
         alignItems: "center",
-        flexDirection: 'row'
+        flexDirection: 'row',
       }}
       onPress={onPress}
     >
@@ -47,49 +41,46 @@ const CustomTabBarButton: React.FC<CustomTabBarButtonProps> = ({ children, onPre
 );
 
 const RootLayout = () => {
-const { isLoaded, isSignedIn } = useUser();
+  const { isLoaded, isSignedIn } = useUser();
 
   if (!isLoaded || isSignedIn === undefined) {
     return (
-        <View>
-            <Text>Loading...</Text>
-        </View>
+      <View>
+        <Text>Loading...</Text>
+      </View>
     );
-}
+  }
 
-if (!isSignedIn) {
-    return <Redirect href="/login/login" />; // Chuyển đến trang login/login
-}
+  if (!isSignedIn) {
+    return <Redirect href="/login/login" />;
+  }
+
   return (
     <Tabs
       screenOptions={{
         headerShown: false,
         tabBarStyle: {
-          position: "relative",
+          position: "absolute",
           left: 15,
           right: 15,
           elevation: 5,
           backgroundColor: "white",
           borderTopRightRadius: 45,
           borderTopLeftRadius: 45,
-          flexDirection: 'row',
-          justifyContent: 'space-around',
-          alignItems: 'center',
+          flexDirection: "row",
+          justifyContent: "space-around",
+          alignItems: "center",
           height: 70,
-          paddingBottom: 0,
-          // shadowColor: "#000",
-          // shadowOpacity: 0.1,
-          // shadowRadius: 10,
+          paddingBottom: 5,
         },
       }}
     >
       <Tabs.Screen
         name="explore"
-  
         options={{
           tabBarLabel: () => null,
-          tabBarIcon: ({ focused }) => (
-            <Ionicons  color={focused ? "#687553" : "#A3A2A9"} size={28} name="newspaper-outline" />
+          tabBarIcon: ({ focused }: { focused: boolean }) => (
+            <Ionicons color={focused ? "red" : "#A3A2A9"} size={28} name="newspaper-outline" />
           ),
         }}
       />
@@ -98,8 +89,8 @@ if (!isSignedIn) {
         name="chatbot"
         options={{
           tabBarLabel: () => null,
-          tabBarIcon: ({ focused }) => (
-            <Ionicons color={focused ? "#687553" : "#A3A2A9"} size={28} name="chatbox-ellipses-outline" />
+          tabBarIcon: ({ focused }: { focused: boolean }) => (
+            <Ionicons color={focused ? "red" : "#A3A2A9"} size={28} name="chatbox-ellipses-outline" />
           ),
         }}
       />
@@ -108,19 +99,19 @@ if (!isSignedIn) {
         name="index"
         options={{
           tabBarLabel: () => null,
-          tabBarButton: (props) => <CustomTabBarButton {...props} />,
-          tabBarIcon: ({ focused }) => (
-            <Ionicons style={focused ? styles.focus : ''}  color="white" size={35} name="home" />
+          tabBarButton: (props: any) => <CustomTabBarButton {...props} />,
+          tabBarIcon: ({ focused }: { focused: boolean }) => (
+            <Ionicons style={focused ? styles.focus : ''} color="white" size={35} name="home" />
           ),
         }}
       />
 
       <Tabs.Screen
-        name="favorite"
+        name="Favorite"
         options={{
           tabBarLabel: () => null,
-          tabBarIcon: ({ focused }) => (
-            <Ionicons color={focused ? "#687553" : "#A3A2A9"} size={28} name="heart-outline" />
+          tabBarIcon: ({ focused }: { focused: boolean }) => (
+            <Ionicons color={focused ? "red" : "#A3A2A9"} size={28} name="heart-outline" />
           ),
         }}
       />
@@ -129,23 +120,25 @@ if (!isSignedIn) {
         name="profile"
         options={{
           tabBarLabel: () => null,
-          tabBarIcon: ({ focused }) => (
-            <Ionicons color={focused ? "#687553" : "#A3A2A9"} size={28} name="person-outline" />
+          tabBarIcon: ({ focused }: { focused: boolean }) => (
+            <Ionicons color={focused ? "red" : "#A3A2A9"} size={28} name="person-outline" />
           ),
         }}
       />
     </Tabs>
   );
 };
+
 const styles = StyleSheet.create({
   icon: {
     // marginTop: 5
-    // paddingBottom: 15
   },
   focus: {
+    shadowColor: '#000',
     shadowOpacity: 0.25,
     shadowRadius: 3.5,
-  }
+    elevation: 5,
+  },
 });
 
 export default RootLayout;
