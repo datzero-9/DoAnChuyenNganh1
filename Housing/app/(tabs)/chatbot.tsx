@@ -1,17 +1,17 @@
-import { View, Text } from 'react-native'
-import React from 'react'
-import { SafeAreaView } from 'react-native-safe-area-context'
+import { View } from 'react-native';
+import React from 'react';
+import { SafeAreaView } from 'react-native-safe-area-context';
+import ChatList from '../chatbot/chatList';
+import ChatDetail from '../chatbot/chatDetail';
 
 const chatbot = () => {
   return (
-    <SafeAreaView >
-        <View className='border '>
-         <Text>
-           xin chào
-         </Text>
-       </View>
-      </SafeAreaView>
-  )
-}
+    <SafeAreaView className="flex-1 bg-gray-100">
+      {/* <ChatDetail /> */}
+      <ChatList />
+    </SafeAreaView>
 
-export default chatbot
+  );
+};
+
+export default chatbot;
