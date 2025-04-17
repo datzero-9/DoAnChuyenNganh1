@@ -1,7 +1,8 @@
 import React from 'react';
 import { View, Text, Image, TouchableOpacity } from 'react-native';
 import { AntDesign } from '@expo/vector-icons';
-import images from "@/constants/images";
+import { useRouter } from 'expo-router';
+import images from '@/constants/images';
 
 type RealEstateItemProps = {
   item: {
@@ -14,12 +15,21 @@ type RealEstateItemProps = {
   };
   onFavoriteToggle: (item: any) => void;
   isFavorite: boolean;
-  onPress: () => void;
 };
 
-const RealEstateItem = ({ item, onFavoriteToggle, isFavorite, onPress }: RealEstateItemProps) => {
+const RealEstateItem = ({ item, onFavoriteToggle, isFavorite }: RealEstateItemProps) => {
+  const router = useRouter();
+
+  const handlePress = () => {
+    router.push({
+      pathname: '/home/[id]',
+      params: { id: item.id },
+    });    
+  };
+  
+
   return (
-    <TouchableOpacity onPress={onPress}>
+    <TouchableOpacity onPress={handlePress}>
       <View className="bg-white rounded-xl shadow p-3 mb-4">
         <Image
           source={item.image}
@@ -34,17 +44,14 @@ const RealEstateItem = ({ item, onFavoriteToggle, isFavorite, onPress }: RealEst
 
         <View className="flex-row justify-between items-center mt-2">
           <View className="flex-row items-center">
-            <Image
-              source={images.home}
-              className="w-6 h-6 mr-2"
-            />
+            <Image source={images.home} className="w-6 h-6 mr-2" />
             <Text className="text-sm text-gray-600">Vinhomes Online</Text>
           </View>
           <View className="flex-row items-center">
             <TouchableOpacity className="bg-red-500 px-3 py-1 rounded-xl mr-2">
               <Text className="text-white font-semibold">{item.contact}</Text>
             </TouchableOpacity>
-            
+
             <TouchableOpacity onPress={() => onFavoriteToggle(item)}>
               <AntDesign
                 name={isFavorite ? 'heart' : 'hearto'}
