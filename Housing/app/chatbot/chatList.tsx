@@ -7,10 +7,10 @@ import {
   TextInput,
   Image,
   Modal,
-  StyleSheet,
 } from "react-native";
 import { Ionicons } from "@expo/vector-icons";
-import NewMessage from "./newMessage";
+import { useRouter } from "expo-router";
+import NewMessage from "../chatbot/newMessage";
 
 interface ChatItem {
   id: number;
@@ -21,7 +21,8 @@ interface ChatItem {
   unreadCount: number;
 }
 
-const ChatList = ({ navigation }: any) => {
+export default function ChatList() {
+  const router = useRouter();
   const [searchText, setSearchText] = useState("");
   const [isModalVisible, setModalVisible] = useState(false);
 
@@ -48,10 +49,28 @@ const ChatList = ({ navigation }: any) => {
     chat.name.toLowerCase().includes(searchText.toLowerCase())
   );
 
+  const handleSendMessage = (receiver: string, message: string) => {
+    const newChat: ChatItem = {
+      id: chats.length + 1,
+      name: receiver,
+      avatar: "https://6.soompi.io/wp-content/uploads/image/20240803033559_Lisa.jpg?s=900x600&e=t",
+      lastMessage: message,
+      time: new Date().toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' }),
+      unreadCount: 1,
+    };
+    setChats([newChat, ...chats]);
+    setModalVisible(false);
+  };
+
   const renderItem = ({ item }: { item: ChatItem }) => (
     <TouchableOpacity
       className="flex-row items-center mb-3"
-      onPress={() => navigation.navigate("ChatDetail", { user: item })}
+      onPress={() =>
+        router.push({
+          pathname: "../chatbot/chatDetail",
+          params: { user: JSON.stringify(item) },
+        })
+      }
     >
       <Image
         source={{ uri: item.avatar }}
@@ -75,19 +94,6 @@ const ChatList = ({ navigation }: any) => {
       </View>
     </TouchableOpacity>
   );
-
-  const handleSendMessage = (receiver: string, message: string) => {
-    const newChat: ChatItem = {
-      id: chats.length + 1,
-      name: receiver,
-      avatar: "https://6.soompi.io/wp-content/uploads/image/20240803033559_Lisa.jpg?s=900x600&e=t",
-      lastMessage: message,
-      time: new Date().toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' }),
-      unreadCount: 1,
-    };
-    setChats([newChat, ...chats]);
-    setModalVisible(false);
-  };
 
   return (
     <View className="flex-1 bg-white p-4">
@@ -129,6 +135,4 @@ const ChatList = ({ navigation }: any) => {
       </Modal>
     </View>
   );
-};
-
-export default ChatList;
+}
